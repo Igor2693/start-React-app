@@ -8,26 +8,35 @@ class EmployersAdd extends Component {
         super(props)
         this.state = {
             name: '',
-            salary: 0
+            salary: ''
         }
     }
 
     nameUser = (e) => {
+
         this.setState({
-            name: e.target.value
+            name: e.target.value.replace(/[^а-яa-z]/gi, '')
         })
+
     }
 
     salaryUser = (e) => {
+
         this.setState({
-            salary: e.target.value
+            salary: e.target.value.replace(/[^\d]/gi, '')
         })
+
     }
 
     addUser = (e) => {
         e.preventDefault()
-
-        this.props.user(this.state.name, this.state.salary)
+        if (this.state.name && this.state.salary) {
+            this.props.user(this.state.name, this.state.salary)
+            this.setState(({
+                name: '',
+                salary: ''
+            }))
+        }
 
 
     }
@@ -45,7 +54,7 @@ class EmployersAdd extends Component {
                         className="form-control new-post-label"
                         placeholder="Как его зовут?"
                         value={this.state.name} />
-                    <input type="number"
+                    <input type="text"
                         onChange={this.salaryUser}
                         className="form-control new-post-label"
                         placeholder="З/П в $?"

@@ -6,42 +6,24 @@ import './employers-list-item.css'
 
 
 class EmployersListItem extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            increase: false,
-            like: false
-        }
-    }
-
-    onIncrease = () => {
-        this.setState(({ increase }) => ({
-            increase: !increase
-        }))
-    }
-
-    onLike = () => {
-        this.setState(({ like }) => ({
-            like: !like
-        }))
-    }
 
     render() {
         let className = 'list-group-item d-flex justify-content-between'
-        if (this.state.increase) {
+        if (this.props.increase) {
             className += ' increase'
         }
-        if (this.state.like) {
+        if (this.props.like) {
             className += ' like'
         }
 
         return (
             <li className={className}>
-                <span className="list-group-item-label" onClick={this.onLike}>{this.props.name}</span>
+                <span className="list-group-item-label" onClick={this.props.onToggleProp} data-toggle='like'>{this.props.name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={this.props.salary + '$'} />
                 <div className='d-flex justify-content-center align-items-center'>
                     <button type="button"
-                        onClick={this.onIncrease}
+                        onClick={this.props.onToggleProp}
+                        data-toggle='increase'
                         className="btn-cookie btn-sm ">
                         <i className="fas fa-cookie"></i>
                     </button>

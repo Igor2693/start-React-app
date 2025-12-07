@@ -1,15 +1,24 @@
 
+import { Component } from 'react'
 import './app-info.css'
 
 
-const AppInfo = () => {
-    return (
-        <div className="app-info">
-            <h1>Учет сотрудников в компании N</h1>
-            <h2>Общее число сотрудников: 4</h2>
-            <h2>Премию получают: 0</h2>
-        </div>
-    )
+class AppInfo extends Component {
+    render() {
+        const { data, dataLength } = this.props
+        const usersLength = data.length
+
+
+
+
+        return (
+            <div className="app-info">
+                <h1>Учет сотрудников в компании N</h1>
+                <h2>Общее число сотрудников: {usersLength}</h2>
+                <h2>Премию получают: {dataLength.length}</h2>
+            </div>
+        )
+    }
 }
 
 export default AppInfo
