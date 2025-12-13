@@ -17,14 +17,21 @@ class App extends Component {
         { name: 'Alex C.', salary: 5000, increase: false, like: false, id: 1 },
         { name: 'Bulgur V.', salary: 1500, increase: false, like: false, id: 2 },
         { name: 'Xanex W.', salary: 1000, increase: false, like: false, id: 3 }
-      ]
+      ],
+      term: ''
     }
     this.maxId = 4
 
   }
+  termPush = (value) => {
+    this.setState(({
+      term: value
+    }))
+  }
+
   render() {
 
-    const { employers } = this.state
+    const { employers, term } = this.state
 
     const userData = (name, salary) => {
 
@@ -64,15 +71,27 @@ class App extends Component {
       return item.increase === true
     })
 
+    const searchEmp = (items, turm) => {
+      if (turm.length === 0) {
+        return items
+      }
+
+      return items.filter(item => {
+        return item.name.indexOf(term) > -1
+      })
+    }
+
+
+
     return (
       <div className="app">
         <AppInfo data={this.state.employers} dataLength={newData} />
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel value={this.termPush} />
           <AppFilter />
         </div>
         <EmployersList
-          data={employers}
+          data={searchEmp(employers, term)}
           onDelete={(id) => onDelete(id)}
           onToggleProp={(id, prop) => onToggleProp(id, prop)}
         />
